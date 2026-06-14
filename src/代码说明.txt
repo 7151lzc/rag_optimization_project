@@ -1,0 +1,8 @@
+│   ├── 1_baseline.py           # 任务2：基线 RAG
+│   ├── 2_semantic_chunk.py     # 任务3：语义切分
+│   ├── 3_query_expansion.py    # 任务4：Query 扩写
+│   ├── 4_cosine_filter.py      # 任务5：余弦校验
+│   ├── 5_hybrid_retrieval.py   # 任务6：混合检索
+│   ├── 6_lambdamart.py         # 任务7：LambdaMART（可选）
+│   ├── 7_metrics.py            # 任务8：指标计算
+│   └── utils.py                # 公共工具函数

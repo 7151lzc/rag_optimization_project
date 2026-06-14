@@ -1,0 +1,21 @@
+# 模型文件（太大）
+models/
+
+# 原始数据
+DuReader.zip
+DuReader/
+data/raw/
+data/processed/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 评估结果
+evaluation_results*.json
+analysis_report.json
+
+# 其他
+.vscode/
+*.log
