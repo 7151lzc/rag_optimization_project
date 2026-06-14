@@ -44,7 +44,11 @@ rag_optimization_project/
 ├── requirements.txt           # 依赖
 └── README.md                  # 文档
 ```
+## 效果演示
 
+点击观看完整演示视频：[RAG智能问答系统演示](https://www.bilibili.com/video/BV1PHJF6oEVT/)
+
+[![系统演示截图](https://img.shields.io/badge/视频-B站-00A1D6)](https://www.bilibili.com/video/BV1PHJF6oEVT/)
 ## 快速开始
 ## 模型下载
 
