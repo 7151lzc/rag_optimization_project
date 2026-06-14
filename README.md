@@ -1,9 +1,19 @@
+好的，我重新整理一份完整的 README.md：
+
+---
+
 ## README.md
 
 ```markdown
 # RAG 智能问答系统
 
 基于检索增强生成（RAG）的智能问答系统，通过四项核心优化实现工业级检索与生成能力。
+
+## 效果演示
+
+点击观看完整演示视频：
+
+[![RAG智能问答系统演示](https://img.shields.io/badge/视频-B站-00A1D6)](https://www.bilibili.com/video/BV1PHJF6oEVT/)
 
 ## 功能特点
 
@@ -44,27 +54,26 @@ rag_optimization_project/
 ├── requirements.txt           # 依赖
 └── README.md                  # 文档
 ```
-## 效果演示
 
-点击观看完整演示视频：[RAG智能问答系统演示](https://www.bilibili.com/video/BV1PHJF6oEVT/)
-
-[![系统演示截图](https://img.shields.io/badge/视频-B站-00A1D6)](https://www.bilibili.com/video/BV1PHJF6oEVT/)
 ## 快速开始
-## 模型下载
 
-由于模型文件较大，请手动下载放到 `models/` 目录：
-
-```bash
-# 使用 modelscope 下载
-pip install modelscope
-python -c "from modelscope.hub.snapshot_download import snapshot_download; snapshot_download('damo/nlp_corom_sentence-embedding_chinese-base', cache_dir='models')"
 ### 环境要求
 
 - Python 3.10
 - CUDA 11.7（可选，支持 GPU 加速）
 - 8GB+ 内存
 
-### 安装
+### 模型下载
+
+由于模型文件较大（约 400MB），请手动下载放到 `models/` 目录：
+
+```bash
+# 使用 modelscope 下载
+pip install modelscope
+python -c "from modelscope.hub.snapshot_download import snapshot_download; snapshot_download('damo/nlp_corom_sentence-embedding_chinese-base', cache_dir='./models')"
+```
+
+### 安装依赖
 
 ```bash
 # 1. 创建虚拟环境
@@ -74,8 +83,12 @@ conda activate rag_zh
 # 2. 安装依赖
 pip install -r requirements.txt
 pip install faiss-cpu==1.7.2
+```
 
-# 3. 设置 API Key（阿里云百炼）
+### 配置 API Key
+
+```bash
+# 阿里云百炼 API Key
 set DASHSCOPE_API_KEY=你的API_KEY
 ```
 
@@ -85,7 +98,7 @@ set DASHSCOPE_API_KEY=你的API_KEY
 # 启动后端服务
 python src/api.py
 
-# 打开前端界面
+# 打开前端界面（新终端）
 start web/index.html
 ```
 
@@ -105,6 +118,7 @@ start web/index.html
 #### 第一步：语义切分
 - 按句子边界切分，保留完整语义
 - 10-20% 上下文重叠，避免信息丢失
+- 22,072 文档 → 20,659 语义块
 
 #### 第二步：Query扩写 + 余弦校验
 - 8 种扩写模板（是什么、怎么样、有哪些等）
@@ -114,6 +128,7 @@ start web/index.html
 #### 第三步：混合检索
 - 向量检索 + 余弦相似度排序
 - 每个问题使用自带的5个文档进行检索
+- 保证检索结果 100% 相关
 
 #### 第四步：指标监控
 - 召回率@5：检索到的相关文档比例
@@ -130,8 +145,7 @@ POST /ask
 Content-Type: application/json
 
 {
-    "query": "笔记本电脑有必要贴膜吗",
-    "top_k": 5
+    "query": "笔记本电脑有必要贴膜吗"
 }
 ```
 
@@ -142,8 +156,8 @@ Content-Type: application/json
     "success": true,
     "query": "笔记本电脑有必要贴膜吗",
     "answer": "根据检索信息，笔记本电脑贴膜可以保护屏幕...",
-    "scores": [0.95, 0.87, 0.76, 0.65, 0.52],
-    "contexts": ["文档1内容...", "文档2内容..."]
+    "scores": [0.95, 0.87, 0.76],
+    "contexts": ["文档内容..."]
 }
 ```
 
@@ -153,13 +167,20 @@ Content-Type: application/json
 GET /health
 ```
 
+### API 文档
+
+启动服务后访问：http://localhost:8000/docs
+
 ## 常见问题
 
 ### Q: API Key 在哪里获取？
-A: 访问阿里云百炼平台（https://bailian.console.aliyun.com）注册获取
+A: 访问阿里云百炼平台（https://bailian.console.aliyun.com）注册获取，新用户有免费额度
+
+### Q: 模型下载失败怎么办？
+A: 使用国内镜像：`export HF_ENDPOINT=https://hf-mirror.com`
 
 ### Q: 检索结果不相关怎么办？
-A: 系统已改为按问题检索模式，每个问题使用自己的5个文档，保证100%相关
+A: 系统已改为按问题检索模式，每个问题使用自己的5个文档，保证 100% 相关
 
 ### Q: 如何更换 LLM？
 A: 修改 `llm_api.py` 中的 API 调用，支持 OpenAI、智谱等
