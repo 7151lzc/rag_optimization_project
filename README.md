@@ -13,7 +13,7 @@
 
 点击观看完整演示视频：
 
-[![RAG智能问答系统演示](https://img.shields.io/badge/视频-B站-00A1D6)](https://www.bilibili.com/video/BV1PHJF6oEVT/)
+#RAG智能问答系统演示(https://www.bilibili.com/video/BV1PHJF6oEVT/)
 
 ## 功能特点
 
